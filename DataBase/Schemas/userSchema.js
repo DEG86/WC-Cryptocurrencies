@@ -5,8 +5,8 @@ module.exports.userSchema = new Schema({
   lastname: String,
   username: String,
   password: String,
-  preferred_currency: [{ type: Schema.Types.ObjectId, ref: "currencyShema" }],
+  currency: { type: Schema.Types.ObjectId, ref: "currencies" },
   cryptocurrencies: [
-    { type: Schema.Types.ObjectId, ref: "userCryptocurrencySchema" },
+    { type: Schema.Types.ObjectId, ref: "users_cryptocurrencies" },
   ],
 });

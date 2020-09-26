@@ -1,7 +1,7 @@
 require("dotenv").config();
 const seeder = require("mongoose-seed");
 
-const uri = `mongodb+srv://${process.env.USER_NAME_DB}:${process.env.USER_PASS_DB}@cluster0.jqvst.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const uri = process.env.URI_DATABASE;
 
 // Connect to MongoDB via Mongoose
 seeder.connect(uri, function () {
