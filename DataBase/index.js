@@ -9,4 +9,4 @@ mongoose
     poolSize: 4,
   })
   .then(() => console.log(" Database Connected "))
-  .catch((error) => console.error(`Cant connect to database: ${error.stack}`));
+  .catch((error) => console.error(`Cant connect to database`));

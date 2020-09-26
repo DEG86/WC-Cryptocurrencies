@@ -11,18 +11,11 @@ const { router } = require("./Routes");
 app.use(express.json());
 app.use(helmet());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Cache-Control, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization, date-filter, filter, nofilter, values"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
-  next();
-});
-
 app.use(cors()); // enable `cors` to set HTTP response header: Access-Control-Allow-Origin: *
 app.use(router);
+
+const { swaggerSpec } = require("./Swagger");
+const swaggerUi = require("swagger-ui-express");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 module.exports = app;

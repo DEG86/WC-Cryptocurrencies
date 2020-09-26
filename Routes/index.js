@@ -4,8 +4,8 @@ const userController = require("../Controllers/userController");
 const cryptocurrencyController = require("../Controllers/cryptocurrencyController");
 const { validateToken } = require("../Middleware");
 
-router.post("/api/usu/singup", userController.create);
-router.post("/api/usu/login", userController.login);
+router.post("/api/singup", userController.create);
+router.post("/api/login", userController.login);
 router.post(
   "/api/usu/crypto",
   validateToken,

@@ -27,7 +27,7 @@ module.exports.getMarkets = async (req, res) => {
       fechaHoraUltimaActualizacion: market.last_updated,
     }));
 
-    message.message = `criptomonedas disponibles, valor en ${user.currency.shortname}`;
+    message.message = `criptomonedas disponibles, precio en ${user.currency.shortname}`;
     message.data = data;
     res.json(message).status(200);
   } catch (error) {
@@ -46,13 +46,15 @@ module.exports.getTop = async (req, res) => {
 
   try {
     const iduser = req.iduser;
-    const { top, order } = req.query;
+    const order = req.query.order;
+    const top = parseInt(req.query.top);
     const user = await userModel
       .findById(iduser)
       .populate("currency")
       .populate("cryptocurrencies");
 
-    if (top > 25) throw "top debe de ser menoer o igual a 25";
+    if (!top || top === 0 || top > 25)
+      throw "top debe de ser un número entre 1 y 25";
 
     const idCryptoCurrUser = user.cryptocurrencies
       .map((cryptocurrencies) => cryptocurrencies.idcryptocurrency)
@@ -75,11 +77,11 @@ module.exports.getTop = async (req, res) => {
     if (order === "asc") {
       totalMerkets = totalMerkets
         .sort(ascFunction(user.currency.shortname)) //ordena por la monde predeterminada del usuario
-        .slice(top.toInt);
+        .slice(0, top);
     } else {
       totalMerkets = totalMerkets
         .sort(descFunction(user.currency.shortname)) //ordena por la monde predeterminada del usuario
-        .slice(top.toInt);
+        .slice(0, top);
     }
     message.message = `top ${top} de criptomonedas de ${user.name}`;
     message.data = totalMerkets;
