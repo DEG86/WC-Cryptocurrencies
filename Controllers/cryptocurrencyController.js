@@ -29,11 +29,11 @@ module.exports.getMarkets = async (req, res) => {
 
     message.message = `criptomonedas disponibles, precio en ${user.currency.shortname}`;
     message.data = data;
-    res.json(message).status(200);
+    res.status(200).json(message);
   } catch (error) {
     message.message = "No se puede resalizar la consulta";
     message.errors.push("No se puede resalizar la consulta");
-    res.json(message).status(400);
+    res.status(400).json(message);
   }
 };
 
@@ -85,11 +85,11 @@ module.exports.getTop = async (req, res) => {
     }
     message.message = `top ${top} de criptomonedas de ${user.name}`;
     message.data = totalMerkets;
-    res.json(message).status(200);
+    res.status(200).json(message);
   } catch (error) {
     message.message = "No se puede resalizar la consulta";
     message.errors.push(error);
-    res.json(message).status(400);
+    res.status(400).json(message);
   }
 };
 

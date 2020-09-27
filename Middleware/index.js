@@ -12,6 +12,6 @@ module.exports.validateToken = (req, res, next) => {
       errors: ["Invalid Token"],
       data: undefined,
     };
-    return res.send(message).status(401);
+    return res.status(401).send(message);
   }
 };

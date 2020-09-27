@@ -6,7 +6,7 @@ const uri = process.env.URI_DATABASE;
 // Connect to MongoDB via Mongoose
 seeder.connect(uri, function () {
   // Load Mongoose models
-  seeder.loadModels(["./Mongo/Models/index.js"]);
+  seeder.loadModels(["./DataBase/Models/index.js"]);
 
   // Clear specified collections
   seeder.clearModels(

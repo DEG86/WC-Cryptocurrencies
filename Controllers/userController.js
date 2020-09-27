@@ -24,14 +24,13 @@ module.exports.create = async (req, res) => {
     const checkUniqueUser = await userModel.findOne({ username });
     if (!username || checkUniqueUser)
       throw !username
-        ? "Debe de especificar el usurio"
+        ? "Debe de especificar el nombre de usurio"
         : `El nombre de usuario ${username} ya existe`;
 
+    if (!preferred_currency) throw "Debe especificra su moneda de preferencia";
     const idcurrency = await checkCurrency(preferred_currency);
-    if (!preferred_currency || !idcurrency)
-      throw !preferred_currency
-        ? "Debe especificra su moneda de preferencia"
-        : `La moneda ${preferred_currency} no es soportada por el sistema`;
+    if (!idcurrency)
+      throw `La moneda ${preferred_currency} no es soportada por el sistema`;
 
     const encryptPass = await encryptData(password);
     const newUser = new userModel({
@@ -46,13 +45,13 @@ module.exports.create = async (req, res) => {
     await session.commitTransaction();
     message.message = "Usuria registrado con exito";
     message.data = { token };
-    res.json(message).status(200);
+    res.status(200).json(message);
   } catch (error) {
     console.log(error);
     await session.abortTransaction();
     message.message = "Error al registrar el usuario";
     message.errors.push(error);
-    res.json(message).status(400);
+    res.status(400).json(message);
   } finally {
     session.endSession();
   }
@@ -66,21 +65,20 @@ module.exports.login = async (req, res) => {
   };
   const { username, password } = req.body;
   try {
+    if (!username) throw "Debe de especificar el usuario";
     const checkUser = await userModel.findOne({ username });
-    if (!username || !checkUser)
-      throw !username
-        ? "Debe de especificar el usurio"
-        : "Usuario no registrado";
-    if (!password || !comperaEncrypt(password, checkUser.password))
-      throw !password ? `Debe ingresar la clave` : "Contraseña errada";
+    if (!checkUser) throw "Usuario no registrado";
+    if (!password) throw "Debe ingresar la clave";
+    const checkPass = await comperaEncrypt(password, checkUser.password);
+    if (!checkPass) throw "Contraseña errada";
     const token = tk.generate({ _id: checkUser._id });
     message.message = "Usuario Auntenticado";
     message.data = { token };
-    res.json(message).status(200);
+    res.status(200).json(message);
   } catch (error) {
     message.message = "No se Puedo Autenticar el usuario";
     message.errors.push(error);
-    res.json(message).status(401);
+    res.status(401).json(message);
   }
 };
 
@@ -152,19 +150,19 @@ module.exports.addCryptocurrencies = async (req, res) => {
     let updateUser = await userModel.findOneAndUpdate(
       { _id: iduser },
       { cryptocurrencies: newUserCrypto_idsMoong },
-      { new: true }
+      { useFindAndModify: false }
     );
 
     message.message = "Cryptomonedas agregadas correctamente";
     message.data = { userCrypto };
     //await session.abortTransaction();
     await session.commitTransaction();
-    res.json(message).status(200);
+    res.status(200).json(message);
   } catch (error) {
     await session.abortTransaction();
     message.message = "Error al agregar cryptomonedas";
     message.errors.push(error);
-    res.json(message).status(400);
+    res.status(400).json(message);
   } finally {
     session.endSession();
   }
