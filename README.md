@@ -1,4 +1,4 @@
-WChallenge-Cryptocurrencies
+## WChallenge-Cryptocurrencies
 
 Esta API sea un wrapper de CoinGecko que permite a los usuarios consultar el mercado de crypromonedas, almacenar sus fovoritas
 y listar hasta su TOP 25 según su cotización.
