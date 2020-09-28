@@ -89,7 +89,8 @@
  *         example: "password"
  *       preferred_currency:
  *         type: "string"
- *         example: "ard, usd or eur"
+ *         description: "can be ars, usd or eur"
+ *         example: "ars"
  *   Login:
  *     properties:
  *       username:
@@ -101,8 +102,6 @@
  *   Cryptocurrencies:
  *     properties:
  *       cryptocurrencies:
- *         type: array
- *         items:
- *           type: string
- *           example: ["btc", "usdt", "eth"]
+ *         type: string
+ *         example: ["btc", "usdt", "eth"]
  */
