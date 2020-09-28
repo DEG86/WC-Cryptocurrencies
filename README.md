@@ -1,17 +1,15 @@
 ## WChallenge-Cryptocurrencies
 
-Esta API sea un wrapper de CoinGecko que permite a los usuarios consultar el mercado de crypromonedas, almacenar sus fovoritas
+Esta API se un wrapper de CoinGecko que permite a los usuarios consultar el mercado de crypromonedas, almacenar sus favoritas
 y listar hasta su TOP 25 según su cotización.
-
-Esta creada en NodeJs y Express.
 
 ## Instalación
 
 Se requiere [Node.js](https://nodejs.org/) v12.16 para correr. Use el manejador de paquetes [nmp](https://www.npmjs.com/get-npm).
 
-Copie el directorio. env-example y guradelo como .env en la raíz de preyecto, en el configure las variables de entorno de la siguente manera
+Copie el directorio. env-example y guardelo como .env en la raíz de preyecto, en el configure las variables de entorno de la siguente manera:
 
-- El proyecto usa como base de datos a [MongoDB](https://www.mongodb.com/es). Por favor use el mismo servicio e ingrese la uri de la base de datos de producción en la varaiable
+- El proyecto usa como base de datos a [MongoDB](https://www.mongodb.com/es). Por favor use el mismo servicio e ingrese la uri de la base de datos de producción en las varaiables
 
 ```bash
 // Entorno de producción
@@ -21,13 +19,13 @@ URI_DATABASE =
 URI_TEST_DATABASE =
 ```
 
-- Configure el puerto en la variable
+- Configure el puerto donde carrerá el proyecto en la variable:
 
 ```bash
 PORT =
 ```
 
-- Configure las variables para Json Web Toke en
+- Configure las variables para Json Web Toke en:
 
 ```bash
 // Secreto para jwt
@@ -47,7 +45,7 @@ or
 node ./DataBase/Seed/index.js
 ```
 
-- Use este comando para iniciar la aplicación
+- Una ves finalizado el proceso, use este comando para iniciar la aplicación
 
 ```bash
 node index
