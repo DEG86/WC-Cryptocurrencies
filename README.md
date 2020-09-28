@@ -61,7 +61,7 @@ locahost:PORT/api-docs/
 
 ## Test
 
-El test se implemento con [Mocha](https://mochajs.org) intallado de forma global (npm i mocha --g). Para correr el test use el comando
+El test se implemento con [Mocha](https://mochajs.org) intalado de forma global (npm i mocha --g). Para correr el test use el comando
 
 ```bash
 npm run test
